@@ -1,0 +1,15 @@
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\bin\Debug\SuperAdventure.exe.config
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\bin\Debug\SuperAdventure.exe
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\bin\Debug\SuperAdventure.pdb
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.csprojResolveAssemblyReference.cache
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.SuperAdventure.resources
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.Properties.Resources.resources
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.csproj.GenerateResource.Cache
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.exe
+c:\users\jacobhix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.pdb
+C:\Users\JacobHix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\bin\Debug\ClassLibrary1.dll
+C:\Users\JacobHix\documents\visual studio 2015\Projects\SuperAdventure\SuperAdventure\bin\Debug\ClassLibrary1.pdb
+C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.TradingScreen.resources
+C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.SaveScreen.resources
+C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.InnScreen.resources
+C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.PlayerStatistics.resources

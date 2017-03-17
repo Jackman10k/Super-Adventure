@@ -1,0 +1,5 @@
+C:\Users\JacobHix\documents\visual studio 2015\Projects\SuperAdventure\ClassLibrary1\bin\Release\ClassLibrary1.dll
+C:\Users\JacobHix\documents\visual studio 2015\Projects\SuperAdventure\ClassLibrary1\bin\Release\ClassLibrary1.pdb
+C:\Users\JacobHix\documents\visual studio 2015\Projects\SuperAdventure\ClassLibrary1\obj\Release\ClassLibrary1.dll
+C:\Users\JacobHix\documents\visual studio 2015\Projects\SuperAdventure\ClassLibrary1\obj\Release\ClassLibrary1.pdb
+C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\ClassLibrary1\obj\Release\Engine.csprojResolveAssemblyReference.cache
