@@ -35,6 +35,7 @@ namespace SuperAdventure
         {
             try
             {
+                //Saving the player's data
                 File.WriteAllText(PLAYER_DATA_FILE_NAME, _currentPlayer.ToXmlString());
                 rtbSaveScreen.Clear();
                 rtbSaveScreen.Text += "Your game has been saved!";
@@ -44,6 +45,7 @@ namespace SuperAdventure
             }
             catch
             {
+                //Informing the player their data could not be saved in the event of an error
                 rtbSaveScreen.Clear();
                 rtbSaveScreen.Text += "Game could not be saved.  Sorry. :/";
             }

@@ -74,14 +74,18 @@ namespace Engine
             return player;
         }
 
+        //The following function will create the player character from save data if said data exists
         public static Player CreatePlayerFromXmlString(string xmlPlayerData)
         {
             try
             {
+                //Creating an XML document that will hold the player's information
                 XmlDocument playerData = new XmlDocument();
 
+                //Loading save data into the XML file
                 playerData.LoadXml(xmlPlayerData);
 
+                //Converting data from XML file to a format the game will accept
                 int currentHitPoints = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/CurrentHitPoints").InnerText);
                 int maximumHitPoints = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/MaximumHitPoints").InnerText);
                 int currentAbilityPoints = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/CurrentAbilityPoints").InnerText);
@@ -94,12 +98,15 @@ namespace Engine
                 int experiencePoints = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/ExperiencePoints").InnerText);
                 int level = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/Level").InnerText);
 
+                //Initializing the player character with the statistics found in the save data
                 Player player = new Player(currentHitPoints, maximumHitPoints, gold, experiencePoints, level, strength, defense, currentAbilityPoints,
                     maximumAbilityPoints, intelligence, magicDefense);
 
+                //Placing the player in the appropriate location
                 int currentLocationID = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/CurrentLocation").InnerText);
                 player.CurrentLocation = World.LocationByID(currentLocationID);
 
+                //Loading the player's inventory
                 foreach (XmlNode node in playerData.SelectNodes("/Player/InventoryItems/InventoryItem"))
                 {
                     int id = Convert.ToInt32(node.Attributes["ID"].Value);
@@ -111,6 +118,7 @@ namespace Engine
                     }
                 }
 
+                //Loading the player's ability list
                 foreach (XmlNode node in playerData.SelectNodes("/Player/AbilityList/Ability"))
                 {
                     int id = Convert.ToInt32(node.Attributes["ID"].Value);
@@ -130,6 +138,7 @@ namespace Engine
                     player.AddAbilityToList(ability);
                 }
 
+                //Loading the player's list of accepted and completed quests
                 foreach (XmlNode node in playerData.SelectNodes("/Player/PlayerQuests/PlayerQuest"))
                 {
                     int id = Convert.ToInt32(node.Attributes["ID"].Value);
@@ -141,6 +150,7 @@ namespace Engine
                     player.Quests.Add(playerQuest);
                 }
 
+                //Sending the completed player object to the main program
                 return player;
             }
             catch
@@ -154,11 +164,11 @@ namespace Engine
         {
             if (location.ItemRequiredToEnter == null)
             {
-                // There is no required item for this location, so return "true"
+                //Returning "true" when there is no required item for the location
                 return true;
             }
 
-            // See if the player has the required item in their inventory
+            //Seeing if the player has the required item in their inventory
             return Inventory.Any(ii => ii.Details.ID == location.ItemRequiredToEnter.ID);
         }
 
@@ -182,17 +192,17 @@ namespace Engine
 
         public bool HasAllQuestCompletionItems(Quest quest)
         {
-            // See if the player has all the items needed to complete the quest here
+            //Seeing if the player has all the items needed to complete the quest here
             foreach (QuestCompletionItem qci in quest.QuestCompletionItems)
             {
-                // Check each item in the player's inventory, to see if they have it, and enough of it
+                //Checking each item in the player's inventory, to see if they have it, and enough of it
                 if (!Inventory.Any(ii => ii.Details.ID == qci.Details.ID && ii.Quantity >= qci.Quantity))
                 {
                     return false;
                 }
             }
 
-            // If we got here, then the player must have all the required items, and enough of them, to complete the quest.
+            //Returning true since the conditions are met
             return true;
         }
 
@@ -215,21 +225,22 @@ namespace Engine
 
             if (item == null)
             {
-                // They didn't have the item, so add it to their inventory, with a quantity of 1
+                //Adding item to inventory if there wasn't already at least one
                 Inventory.Add(new InventoryItem(itemToAdd, quantity));
             }
             else
             {
-                // They have the item in their inventory, so increase the quantity by one
+                //Increasing the count of an item ifit already exists in the inventory
                 item.Quantity += quantity;
             }
 
+            //Raising an event instance to update the UI
             RaiseInventoryChangedEvent(itemToAdd);
         }
 
         public void MarkQuestCompleted(Quest quest)
         {
-            // Find the quest in the player's quest list
+            //Finding the quest in the player's quest list
             PlayerQuest playerQuest = Quests.SingleOrDefault(pq => pq.Details.ID == quest.ID);
 
             if (playerQuest != null)
@@ -262,28 +273,26 @@ namespace Engine
 
             if (item == null)
             {
-                // The item is not in the player's inventory, so ignore it.
-                // We might want to raise an error for this situation
+                //Doing nothing at the moment
             }
             else
             {
-                // They have the item in their inventory, so decrease the quantity
+                //Decreasing the quantity of the item they have
                 item.Quantity -= quantity;
 
-                // Don't allow negative quantities.
-                // We might want to raise an error for this situation
+                //Ensuring there are no negative quantities of items
                 if (item.Quantity < 0)
                 {
                     item.Quantity = 0;
                 }
 
-                // If the quantity is zero, remove the item from the list
+                //Removing the item from the list if there are no copies left
                 if (item.Quantity == 0)
                 {
                     Inventory.Remove(item);
                 }
 
-                // Notify the UI that the inventory has changed
+                //Notifying the UI that the inventory has changed
                 RaiseInventoryChangedEvent(itemToRemove);
             }
         }
@@ -353,7 +362,7 @@ namespace Engine
             XmlNode inventoryItems = playerData.CreateElement("InventoryItems");
             player.AppendChild(inventoryItems);
 
-            // Create an "InventoryItem" node for each item in the player's inventory
+            //Creating an "InventoryItem" node for each item in the player's inventory
             foreach (InventoryItem item in this.Inventory)
             {
                 XmlNode inventoryItem = playerData.CreateElement("InventoryItem");
@@ -421,11 +430,11 @@ namespace Engine
                 abilityList.AppendChild(xmlAbility);
             }
 
-            // Create the "PlayerQuests" child node to hold each PlayerQuest node
+            //Creating the "PlayerQuests" child node to hold each PlayerQuest node
             XmlNode playerQuests = playerData.CreateElement("PlayerQuests");
             player.AppendChild(playerQuests);
 
-            // Create a "PlayerQuest" node for each quest the player has acquired
+            //Creating a "PlayerQuest" node for each quest the player has acquired
             foreach (PlayerQuest quest in this.Quests)
             {
                 XmlNode playerQuest = playerData.CreateElement("PlayerQuest");
@@ -441,7 +450,7 @@ namespace Engine
                 playerQuests.AppendChild(playerQuest);
             }
 
-            return playerData.InnerXml; // The XML document, as a string, so we can save the data to disk
+            return playerData.InnerXml;
         }
     }
 }

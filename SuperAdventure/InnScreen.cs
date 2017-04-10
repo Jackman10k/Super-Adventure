@@ -32,6 +32,7 @@ namespace SuperAdventure
         {
             if (_currentPlayer.Gold >= _currentPlayer.CurrentLocation.InnAvailableHere.Cost)
             {
+                //Healing the player and subtracting gold
                 rtbInnMessage.Clear();
                 rtbInnMessage.Text = _currentPlayer.CurrentLocation.InnAvailableHere.RestMessage;
                 _currentPlayer.Gold -= _currentPlayer.CurrentLocation.InnAvailableHere.Cost;
@@ -43,6 +44,7 @@ namespace SuperAdventure
             }
             else
             {
+                //Telling player they need more gold to heal
                 rtbInnMessage.Clear();
                 rtbInnMessage.Text = _currentPlayer.CurrentLocation.InnAvailableHere.NotEnoughGoldMessage;
             }

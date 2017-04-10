@@ -23,18 +23,19 @@ namespace SuperAdventure
 
             InitializeComponent();
 
+            //Filling in UI with information from the specific vendor at the location
             lblVendorName.Text += _currentPlayer.CurrentLocation.VendorWorkingHere.Name;
             rtbVendorText.Text += _currentPlayer.CurrentLocation.VendorWorkingHere.Greeting;
 
-            // Style, to display numeric column values
+            //Styling column values
             DataGridViewCellStyle rightAlignedCellStyle = new DataGridViewCellStyle();
             rightAlignedCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            // Populate the datagrid for the player's inventory
+            //Populating the datagrid for the player's inventory
             dgvPlayerItems.RowHeadersVisible = false;
             dgvPlayerItems.AutoGenerateColumns = false;
 
-            // This hidden column holds the item ID, so we know which item to sell
+            //This hidden column holds the item ID, so we know which item to sell
             dgvPlayerItems.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "ItemID",
@@ -90,18 +91,17 @@ namespace SuperAdventure
                 }    
             }
 
-            // Bind the player's buyable inventory to the datagridview
+            //Binding the player's buyable inventory to the datagridview
             dgvPlayerItems.DataSource = playerInventoryThatVendorWillBuy;
 
-            // When the user clicks on a row, call this function
+            //When the user clicks on a row, call this function
             dgvPlayerItems.CellClick += dgvPlayerItems_CellClick;
 
-
-            // Populate the datagrid for the vendor's inventory
+            //Populating the datagrid for the vendor's inventory
             dgvVendorItems.RowHeadersVisible = false;
             dgvVendorItems.AutoGenerateColumns = false;
 
-            // This hidden column holds the item ID, so we know which item to sell
+            //This hidden column holds the item ID, so we know which item to buy
             dgvVendorItems.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "ItemID",
@@ -131,51 +131,56 @@ namespace SuperAdventure
                 DataPropertyName = "ItemID"
             });
 
-            // Bind the vendor's inventory to the datagridview 
+            //Binding the vendor's inventory to the datagridview 
             dgvVendorItems.DataSource = _currentPlayer.CurrentLocation.VendorWorkingHere.Inventory;
 
-            // When the user clicks on a row, call this function
+            //When the user clicks on a row, call this function
             dgvVendorItems.CellClick += dgvVendorItems_CellClick;
         }
 
         private void dgvPlayerItems_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // The first column of a datagridview has a ColumnIndex = 0
-            // This is known as a "zero-based" array/collection/list.
-            // You start counting with 0.
-            //
-            // The 5th column (ColumnIndex = 4) is the column with the button.
-            // So, if the player clicked the button column, we will sell an item from that row.
+            /*The first column of a datagridview has a ColumnIndex = 0
+              This is known as a "zero-based" array/collection/list.
+              You start counting with 0.
+            
+              The 5th column (ColumnIndex = 4) is the column with the button.
+              So, if the player clicked the button column, we will sell an item from that row.*/
+
+            //Performing operations when the player clicks the 5th column
             if (e.ColumnIndex == 4)
             {
-                // This gets the ID value of the item, from the hidden 1st column
-                // Remember, ColumnIndex = 0, for the first column
+                //Getting the ID of the item at the specific row and column
                 var itemID = dgvPlayerItems.Rows[e.RowIndex].Cells[0].Value;
 
-                // Get the Item object for the selected item row
+                //Getting the Item object for the selected item row with the ID
                 Item itemBeingSold = World.ItemByID(Convert.ToInt32(itemID));
 
                 if (itemBeingSold.Price == World.UNSELLABLE_ITEM_PRICE)
                 {
+                    //Telling player they cannot sell an unsellable item
                     MessageBox.Show("You cannot sell the " + itemBeingSold.Name);
                 }
                 else
                 {
                     if(Convert.ToInt32(dgvPlayerItems.Rows[e.RowIndex].Cells[2].Value) <= 0)
                     {
+                        //Telling player they don't have any of an item left to sell
                         MessageBox.Show("You don't have any of these left to sell.");
                     }
                     else
                     {
-                        // Remove one of these items from the player's inventory
+                        //Removing one of these items from the player's inventory
                         _currentPlayer.RemoveItemFromInventory(itemBeingSold);
                         playerInventoryThatVendorWillBuy.Remove(ConvertItemToInventoryItem(itemBeingSold));
 
-                        // Give the player the gold for the item being sold.
+                        //Giving the player the gold for the item being sold.
                         _currentPlayer.Gold += itemBeingSold.Price;
                     }
                 }
             }
+
+            //Displaying item description if players click the second column instead
             else if (e.ColumnIndex == 1)
             {
                 rtbPlayerItemDescription.Clear();
@@ -190,10 +195,10 @@ namespace SuperAdventure
             // The 4th column (ColumnIndex = 3) has the "Buy 1" button.
             if (e.ColumnIndex == 3)
             {
-                // This gets the ID value of the item, from the hidden 1st column
+                //This gets the ID value of the item, from the hidden 1st column
                 var itemID = dgvVendorItems.Rows[e.RowIndex].Cells[0].Value;
 
-                // Get the Item object for the selected item row
+                //Getting the Item object for the selected item row
                 Item itemBeingBought = World.ItemByID(Convert.ToInt32(itemID));
 
                 //Checking to see if player is buying a one-off item
@@ -209,20 +214,23 @@ namespace SuperAdventure
                     }
                 }
 
-                // Check if the player has enough gold to buy the item
+                //Checking if the player has enough gold to buy the item
                 if (_currentPlayer.Gold >= itemBeingBought.Price)
                 {
-                    // Add one of the items to the player's inventory
+                    //Adding one of the items to the player's inventory
                     _currentPlayer.AddItemToInventory(itemBeingBought);
 
-                    // Remove the gold to pay for the item
+                    //Removing the gold to pay for the item
                     _currentPlayer.Gold -= itemBeingBought.Price;
                 }
                 else
                 {
+                    //Informing player they cannot afford an item
                     MessageBox.Show("You do not have enough gold to buy the " + itemBeingBought.Name);
                 }
             }
+
+            //Displaying item description if players click the second column instead
             else if (e.ColumnIndex == 1)
             {
                 rtbVendorItemDescription.Clear();

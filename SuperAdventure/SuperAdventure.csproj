@@ -67,6 +67,12 @@
     <Compile Include="InnScreen.Designer.cs">
       <DependentUpon>InnScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="NPCScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NPCScreen.Designer.cs">
+      <DependentUpon>NPCScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlayerStatistics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </Compile>
     <EmbeddedResource Include="InnScreen.resx">
       <DependentUpon>InnScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NPCScreen.resx">
+      <DependentUpon>NPCScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayerStatistics.resx">
       <DependentUpon>PlayerStatistics.cs</DependentUpon>
