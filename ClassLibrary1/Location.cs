@@ -39,6 +39,8 @@ namespace Engine
             QuestAvailableHere = questAvailableHere;
             MonsterLivingHere = monsterLivingHere;
             HasSavePoint = hasSavePoint;
+
+            NPCsLivingHere = new List<NPC>();
         }
     }
 }

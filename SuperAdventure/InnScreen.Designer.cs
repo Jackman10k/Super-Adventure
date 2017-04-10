@@ -116,7 +116,7 @@
             this.Controls.Add(this.rtbInnMessage);
             this.Controls.Add(this.rtbInnDescription);
             this.Name = "InnScreen";
-            this.Text = "InnScreen";
+            this.Text = "Inn";
             this.ResumeLayout(false);
             this.PerformLayout();
 

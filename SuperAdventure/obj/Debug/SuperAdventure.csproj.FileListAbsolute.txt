@@ -13,3 +13,4 @@ C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdve
 C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.SaveScreen.resources
 C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.InnScreen.resources
 C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.PlayerStatistics.resources
+C:\Users\JacobHix\Documents\Visual Studio 2015\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.NPCScreen.resources

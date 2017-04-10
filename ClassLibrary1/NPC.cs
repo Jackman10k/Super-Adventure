@@ -8,13 +8,11 @@ namespace Engine
 {
     public class NPC
     {
-        public int ID { get; set; }
         public string Name { get; set; }
         public string Dialogue { get; set; }
 
-        public NPC(int id, string name, string dialogue)
+        public NPC(string name, string dialogue)
         {
-            ID = id;
             Name = name;
             Dialogue = dialogue;
         }
